@@ -20,6 +20,16 @@ exports.signin = function(req, res, next) {
   res.send({ token: userToken(req.user) });
 }
 
+exports.getUserRecipes = function (req, res) {
+  var username = req.username;
+  User.findOne({username: username}, function (err, user){
+    if (err) { return next(err); }
+    if (user) {
+      res.send(200, user.recipes);
+    }
+  })
+}
+
 /*
   # Takes in a user
   @sub => subject
@@ -39,7 +49,7 @@ exports.signup = function(req, res, next) {
     if (err) { return next(err); }
     if (existingUser) {
         //422 => unprocessable data
-      return res.status(422).send({error: 'username is already in use'});
+      return res.status(422).send({error: 'Username is already in use'});
     }
     const user = new User({
       username: username,
