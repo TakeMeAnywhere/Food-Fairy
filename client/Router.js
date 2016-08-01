@@ -9,6 +9,9 @@ import AdvancedSearch from './containers/AdvancedSearch';
 import SignupPage from  './pages/auth/Signup';
 import SigninPage from './pages/auth/Signin';
 import SearchNestPage from './components/SearchNest'
+import SignoutPage from './pages/auth/Signout';
+// import RequireAuth from './pages/auth/RequireAuth';
+import SavedRecipesPage from './containers/SavedRecipes';
 
 
 export default (
@@ -21,5 +24,7 @@ export default (
     <Route path="advanced" component={AdvancedSearch} />
     <Route path = "signup" component = {SignupPage} />
     <Route path = "signin" component = {SigninPage} />
+    <Route path = "signout" component = {SignoutPage} />
+    <Route path = "saved" component = {SavedRecipesPage} />
   </Route>
 )

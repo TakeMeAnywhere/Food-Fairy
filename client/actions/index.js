@@ -24,11 +24,40 @@ export function signinUser({username, password}) {
       .then(response => {
         dispatch({type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/saved');
+        browserHistory.push('/');
       })
       .catch(() => {
+        dispatch(authError('Please enter a valid Username/Password'));
+      });
+  }
+}
 
+export function signupUser({username, password}) {
+  return function(dispatch) {
+    axios.post('/user/signup', {username: username, password: password})
+      .then(response => {
+        dispatch({type: AUTH_USER});
+        localStorage.setItem('token', response.data.token);
+        browserHistory.push('/');
       })
+      .catch(() => {
+        dispatch(authError('Sorry! That username is already in use.'))
+      });
+  }
+}
+
+export function authError(err) {
+  return {
+    type: AUTH_ERROR,
+    payload: err
+  }
+}
+
+export function signoutUser() {
+  localStorage.removeItem('token');
+  browserHistory.push('/');
+  return {
+    type: UNAUTH_USER
   }
 }
 
