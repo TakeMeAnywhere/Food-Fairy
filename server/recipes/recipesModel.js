@@ -7,10 +7,7 @@ const RecipeSchema = mongoose.Schema({
   summary: String,
   steps: String,
   missedIngredients: String,
-  usedIngredients: String,
-  user: {
-    type: mongoose.Schema.Types.ObjectId, ref: 'User'
-  }
+  usedIngredients: String
 });
 
 module.exports = mongoose.model('Recipe', RecipeSchema);

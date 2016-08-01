@@ -11,9 +11,9 @@ const requireSignin = passport.authenticate('local', { session: false });
 module.exports = function(app, express) {
 
   // Route for fetching all Recipes
-  app.get('/user/fetchRecipes', requireAuth, function(req, res) {
-    res.send({ hi: "there" });
-  });
+  app.get('/user/fetchAllRecipes', requireAuth, usersController.fetchAllRecipes);
+  app.post('/user/saveRecipe', requireAuth, usersController.saveRecipe);
+  app.delete('/user/removeRecipe/:id', requireAuth, usersController.removeRecipe);
 
   app.post('/api/saved', function(req, res){
     //should take in username
