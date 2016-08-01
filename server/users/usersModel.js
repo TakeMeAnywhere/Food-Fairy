@@ -6,7 +6,8 @@ var UserSchema = new mongoose.Schema({
   password: String,
   recipes: [
     {
-      type: mongoose.Schema.Types.ObjectId, ref: 'Recipe'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Recipe'
     }
   ]
 })

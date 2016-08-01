@@ -19,20 +19,6 @@ export default class SavedRecipes extends React.Component {
   }
 
   componentWillMount() {
-    //check for user signed in
-    // if (user){
-    //   //XXXXXXXXXXXX this is probably not right!!! XXXXXXXXXXXXXXXXXX
-    //   var userId = user.username;
-    //   //pass in userId as query
-    //   return axios.post('/api/saved', username)
-    //     .then(function(recipes){
-    //       console.log("User Axios Recipes response on front end ", recipes);
-    //       //here are the users saved recipes
-    //     })
-    //     .catch(function(err){
-    //       console.log("Error getting saved recipes", err);
-    //     })
-    // }
 
   }
 

@@ -1,6 +1,7 @@
 const jwt = require('jwt-simple');
 const config = require('../config/app_key');
 const User = require('./usersModel');
+const Recipe = require('../recipes/recipesModel');
 /*
   # Takes in a user
   @sub => subject
@@ -60,5 +61,44 @@ exports.signup = function(req, res, next) {
       if (err) { return next(err); }
       res.json({token: userToken(user)});
     })
+  })
+}
+
+exports.fetchAllRecipes = function(req, res, next) {
+  const username = req.body.username;
+  User.findOne({username: username})
+  .populate('recipes')
+  .exec(function(err, user) {
+    if (err) { return next(err); }
+    res.send(user);
+  })
+
+}
+
+exports.saveRecipe = function(req, res, next) {
+  const username = req.body.username;
+  User.findOne({username: username}, function(err, user) {
+    if (err) { return next(err); }
+      Recipe.create({
+        title: req.body.title,
+        image: req.body.image,
+        likes: req.body.likes,
+        summary: req.body.summary,
+        steps: req.body.steps,
+        missedIngredients: req.body.missedIngredients,
+        usedIngredients: req.body.usedIngredients
+      }, function(err, created) {
+        if (err) { return next(err); }
+        user.recipes.push(created);
+        user.save();
+    })
+    res.send('Successfully saved Recipe');
+  })
+}
+
+exports.removeRecipe = function(req, res, next) {
+  Recipe.findByIdAndRemove(req.params.id, function(err) {
+    if (err) { return next(err); }
+    res.send('Recipe Deleted');
   })
 }
