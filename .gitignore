@@ -32,3 +32,5 @@ client/compiled/
 # API key config
 server/config/*.js.env
 .env
+
+client/index.js

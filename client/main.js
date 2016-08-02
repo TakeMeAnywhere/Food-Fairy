@@ -9,7 +9,7 @@ import Promise_Handler from './middleware/promise_Handler';
 import reduxThunk from 'redux-thunk';
 
 //Redux Thunk gives us direct access to the dispatch method
-const createStoreWithMiddleware = applyMiddleware(Promise_Handler, reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk,Promise_Handler)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

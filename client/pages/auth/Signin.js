@@ -10,6 +10,16 @@ export default class SigninPage extends React.Component {
     this.props.signinUser({username, password})
   }
 
+  renderError() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>{this.props.errorMessage}</strong>
+        </div>
+      )
+    }
+  }
+
     //handleSubmit, username, password => given to us from redux form
   render(){
 
@@ -23,8 +33,9 @@ export default class SigninPage extends React.Component {
         </fieldset>
         <fieldset className="form-group">
           <label>Password: </label>
-          <input {...password} className="form-control" />
+          <input {...password} type="password" className="form-control" />
         </fieldset>
+        {this.renderError()}
         <button action="submit" className="btn btn-primary">Sign In</button>
       </form>
     )
@@ -40,5 +51,5 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'signin',
   fields: ['username', 'password']
-}, null, actions)(SigninPage);
+}, mapStateToProps, actions)(SigninPage);
 

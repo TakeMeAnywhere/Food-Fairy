@@ -11,9 +11,23 @@ const requireSignin = passport.authenticate('local', { session: false });
 module.exports = function(app, express) {
 
   // Route for fetching all Recipes
-  app.get('/user/fetchRecipes', requireAuth, function(req, res) {
-    res.send({ hi: "there" });
-  });
+  app.get('/user/fetchAllRecipes', requireAuth, usersController.fetchAllRecipes);
+  app.post('/user/saveRecipe', requireAuth, usersController.saveRecipe);
+  app.delete('/user/removeRecipe/:id', requireAuth, usersController.removeRecipe);
+
+  app.post('/api/saved', function(req, res){
+    //should take in username
+    console.log("Saved Recipes Request in Routes", req.body);
+     usersController.getUserRecipes(req.body.id, function(recipes){
+      //this should be an array of the user recipes as objects
+      var allRecipes = [];
+      recipes.forEach(function(recipe){
+        //push the result of the request to the allRecipes
+        allRecipes.push(helpers.searchSpoonacular(recipe.id))
+      })
+      res.send(response, allRecipes);
+    });
+  })
 
   //Routes for signin/signout
   app.post('/user/signup', usersController.signup);
